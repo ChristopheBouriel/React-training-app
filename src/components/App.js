@@ -3,6 +3,7 @@ import ToDoList from './ToDoList';
 import NavBar from './Footer';
 import AddTask from "./addTask";
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import initialData from '../initialData';
 
 class App extends React.Component {
     render() {
@@ -11,8 +12,8 @@ class App extends React.Component {
             <h1 className="m-3">Liste de tâches</h1>
             <BrowserRouter>
                 <Routes>
-                    <Route path="add-task" element={<AddTask />} />
-                    <Route path="/:filter" element={<ToDoList />}/>
+                    <Route path="/add-task" element={<AddTask />} />
+                    <Route path="/:filter" element={<ToDoList tasks={initialData} />} />
                 </Routes>
                 <NavBar />
             </BrowserRouter>

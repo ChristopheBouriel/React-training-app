@@ -1,32 +1,37 @@
 import React from "react";
+import ToDo from './ToDo';
+import { useParams } from 'react-router-dom';
 
-const ToDoList = () => {
-    return (
-        /** Ci-dessous le racourci pour <React.Fragment> (car on ne peux retourner qu'un élément, donc il faut une div
-        *   qui fasse office de container en quelque sorte)
-        */
-        <>
-            <p className="mx-3">Si tu dois scroller... c'est que tu dois te bouger ^^</p>
-            <ul className="list-group m-3">
-                <li className="list-group-item d-flex align-items-center justify-content-between">
-                    Ranger la vaisselle 
-                    <button className="btn btn-sm btn-outline-success">&#x2713;</button>
-                </li>
-                <li className="list-group-item d-flex align-items-center justify-content-between">
-                    Répondre appel d'offres
-                    <button className="btn btn-sm  btn-outline-success">&#x2713;</button>
-                </li>
-                <li className="list-group-item d-flex align-items-center justify-content-between">
-                    Signer contrat
-                    <button className="btn btn-sm btn-outline-success">&#x2713;</button>
-                </li>
-                <li className="list-group-item d-flex align-items-center justify-content-between">
-                    Ranger la salon
-                    <button className="btn btn-sm btn-outline-success">&#x2713;</button>
-                </li>
-            </ul>
-        </>
-    )
+const ToDoList = ({tasks}) => {
+    
+    let params = useParams();
+    let filteredTasks;
+
+    switch (params.filter) {
+        case 'completed': filteredTasks = tasks.filter(task => task.completed)
+        break;
+        default: filteredTasks = tasks
+    }
+
+    if (filteredTasks.length === 0) {
+        return (
+            <p>Aucune tâche à afficher</p>
+        )
+    } else {
+        return (
+            /** Ci-dessous le racourci pour <React.Fragment> (car on ne peux retourner qu'un élément, donc il faut une div
+            *   qui fasse office de container en quelque sorte)
+            */
+            <>
+                <p className="mx-3">Si tu dois scroller... c'est que tu dois te bouger ^^</p>
+                <ul className="list-group m-3">
+                    {
+                        filteredTasks.map((task) => <ToDo task={task} key={task.id} />)
+                    }
+                </ul>
+            </>
+        )
+    }
 }
 
 export default ToDoList
