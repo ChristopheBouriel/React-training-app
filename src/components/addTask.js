@@ -1,15 +1,23 @@
 import React from "react";
-
+import { Navigate } from "react-router-dom";
 class AddTask extends React.Component {
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.props.onAddTask(this.newTask.value)
+    }
+
     render() {
         return (
             <section>
+                {this.newTask && (<Navigate to="/" replace={true} />)}
                 <h1 className="m-3">Nouvelle tâche</h1>
                 <div className="card mx-3">
                     <form className="card-body" onSubmit={(e) => this.handleSubmit(e)}>
                         <div className="form-group">
                             <label form="taskName">Nom de la tâche</label>
-                            <input type="text" className="form-control" name="taskName" id="taskName" required ref={input => this.newTask = input} />
+                            <input type="text" className="form-control" name="taskName" id="taskName" required 
+                            ref={input => this.newTask = input} />
                         </div>
                         <button type="submit" className="btn btn-primary">Créer</button>
                     </form>

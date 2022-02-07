@@ -6,7 +6,7 @@ const NavBar = () => {
     return (
             <footer className="d-flex justify-content-between bg-secondary p-3" id="mainFooter">
               <div className="btn-group">
-                  <NavLink to="/all" className="btn btn-outline-dark bg-light"><FaListAlt/></NavLink>
+                  <NavLink to="/" className="btn btn-outline-dark bg-light"><FaListAlt/></NavLink>
                   <NavLink to="/completed" className="btn btn-outline-dark bg-light"><FaCheckSquare/></NavLink>
                   <NavLink to="/add-task" className="btn btn-outline-dark bg-light"><FaPlusSquare/></NavLink>
               </div>
