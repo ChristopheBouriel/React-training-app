@@ -5,11 +5,24 @@ import AddTask from "./addTask";
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import initialData from '../initialData';
 import uniqueId from "uniqueid";
+import Fetching from './Fetching'
 
 class App extends React.Component {
 
     state = {
-      tasks: initialData
+      tasks: [],
+      fetching: true
+    }
+
+    componentDidMount = () => {
+      let delay = Math.floor(Math.random()*5000)
+
+      setTimeout(() => {
+        this.setState({
+          fetching: false,
+          tasks: initialData
+        })
+      }, delay)
     }
 
     onToggleCompleted = (taskId) => {
@@ -35,9 +48,19 @@ class App extends React.Component {
       }))
     }
 
+    onDeleteCompleted = () => {
+      this.setState(prevState => {
+        let newState = prevState.tasks.filter(task => !task.completed)
+        return {
+          tasks: newState
+        }
+      })
+    }
+
     render() {
       return (
         <section id="toDo">
+          {this.state.fetching ? <Fetching /> : null}
             <h1 className="m-3">Liste de tâches</h1>
             <BrowserRouter>
                 <Routes>
@@ -47,7 +70,7 @@ class App extends React.Component {
                       <Route path="" element={<ToDoList tasks={this.state.tasks} onToggleCompleted={this.onToggleCompleted} />} />
                     </Route>
                 </Routes>
-                <NavBar />
+                <NavBar onDeleteCompleted = {this.onDeleteCompleted}/>
             </BrowserRouter>
         </section>
       )
