@@ -2,7 +2,27 @@ import React from "react";
 import ToDo from './ToDo';
 import { useParams } from 'react-router-dom';
 
-const ToDoList = ({tasks, onToggleCompleted}) => {
+import { connect } from 'react-redux';
+
+class ToDoList extends React.Component {
+    render() {
+        return (
+            /** Ci-dessous le racourci pour <React.Fragment> (car on ne peux retourner qu'un élément, donc il faut une div
+            *   qui fasse office de container en quelque sorte)
+            */
+            <>
+                <p className="mx-3">Si tu dois scroller... c'est que tu dois te bouger ^^</p>
+                <ul className="list-group m-3">
+                    {
+                        this.props.tasks.map((task) => <ToDo task={task} key={task.id} />)
+                    }
+                </ul>
+            </>
+        )
+    }
+}
+
+/* const ToDoList = ({tasks, onToggleCompleted}) => {
     let params = useParams();
     let filteredTasks;
 
@@ -20,9 +40,6 @@ const ToDoList = ({tasks, onToggleCompleted}) => {
         )
     } else {
         return (
-            /** Ci-dessous le racourci pour <React.Fragment> (car on ne peux retourner qu'un élément, donc il faut une div
-            *   qui fasse office de container en quelque sorte)
-            */
             <>
                 <p className="mx-3">Si tu dois scroller... c'est que tu dois te bouger ^^</p>
                 <ul className="list-group m-3">
@@ -33,6 +50,12 @@ const ToDoList = ({tasks, onToggleCompleted}) => {
             </>
         )
     }
+} */
+
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks
+    }
 }
 
-export default ToDoList
+export default connect(mapStateToProps)(ToDoList)

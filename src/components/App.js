@@ -4,12 +4,12 @@ import NavBar from './Footer';
 import AddTask from "./addTask";
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import initialData from '../initialData';
-import uniqueId from "uniqueid";
+import { v4 as uuidv4 } from 'uuid';
 import Fetching from './Fetching'
 
 class App extends React.Component {
 
-    state = {
+/*     state = {
       tasks: [],
       fetching: true
     }
@@ -38,7 +38,7 @@ class App extends React.Component {
 
     onAddTask = (newTaskName) => {
       let newTask = {
-        id: uniqueId(),
+        id: uuidv4(),
         name: newTaskName,
         completed: false
       }
@@ -55,19 +55,19 @@ class App extends React.Component {
           tasks: newState
         }
       })
-    }
+    } */
 
     render() {
       return (
         <section id="toDo">
-          {this.state.fetching ? <Fetching /> : null}
+          {/*this.state.fetching ? <Fetching /> : null*/}
             <h1 className="m-3">Liste de tâches</h1>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/add-task" element={<AddTask onAddTask={this.onAddTask}/>} />
+                    <Route path="/add-task" element={<AddTask />} />
                     <Route path="/">
-                      <Route path=":filter" element={<ToDoList tasks={this.state.tasks} onToggleCompleted={this.onToggleCompleted} />} />
-                      <Route path="" element={<ToDoList tasks={this.state.tasks} onToggleCompleted={this.onToggleCompleted} />} />
+                      <Route path=":filter" element={<ToDoList />} />
+                      <Route path="" element={<ToDoList />} />
                     </Route>
                 </Routes>
                 <NavBar onDeleteCompleted = {this.onDeleteCompleted}/>
